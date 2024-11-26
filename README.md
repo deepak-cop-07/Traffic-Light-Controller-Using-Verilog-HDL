@@ -66,6 +66,32 @@ else
  end
  endmodule
 ```
+## testbench
+```
+module normal_traffic_tb;
+    reg clk, rst;
+    wire [2:0] light;
+
+    normal_traffic uut (
+        .clk(clk),
+        .rst(rst),
+        .light(light)
+    );
+
+    initial begin
+        clk = 0;
+        rst = 1;
+        #10 rst = 0;
+    end
+
+    always #10 clk = ~clk;
+
+    initial begin
+        $monitor("Time = %d, rst = %b, light = %b", $time, rst, light);
+        #200 $finish;
+    end
+endmodule
+```
 
 ## output
 ![image](https://github.com/user-attachments/assets/de844d06-4951-4559-afc0-ae167e5dcc2f)
